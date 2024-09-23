@@ -1,7 +1,7 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.slf4j .Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
@@ -128,13 +128,16 @@ public class DbStore implements Store {
     private Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO candidates(name) VALUES (?)",
-                     PreparedStatement.RETURN_GENERATED_KEYS)) {
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
             ps.setString(1, candidate.getName());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
-                candidate.setId(id.getInt(1));
+                if (id.next()) {
+                    candidate.setId(id.getInt(1));
+                }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             LOG.error("Exception", e);
         }
         return candidate;

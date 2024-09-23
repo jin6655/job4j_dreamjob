@@ -2,9 +2,13 @@ package ru.job4j.dream.store;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class MainStore {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         Store store = DbStore.instOf();
         System.out.println("Проверка методов  save findPostById findAllPosts для Post");
         store.save(new Post(7, "Super Java Job"));
