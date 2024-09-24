@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="ru.job4j.dream.store.DbStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <html>
 <head>
     <!-- Required meta tags -->
@@ -30,6 +31,20 @@
 %>
 <div class="container pt-3">
     <div class="row">
+        <div class="row" align="center">
+            <ul class="nav">
+                <c:if test="${user != null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
+                    </li>
+                </c:if>
+                <c:if test="${user == null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
         <div class="card" style="width: 100%">
             <div class="card-header">
                 <% if (id == null) { %>
