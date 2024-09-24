@@ -32,7 +32,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">Список кандидатов</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,6 +43,21 @@
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
                                 <c:out value="${can.name}"/>
+                            </td>
+                            <td>
+                                <img src="<c:url value='/download?id=${can.id}'/>" width="150px" height="150px"/>
+                            </td>
+                            <td align="center">
+                                <table>
+                                    <tr>
+                                        <a href="<c:url value="/photoUpload?id=${can.id}"/>"><p align="center">Добавить
+                                            фото</p></a></tr>
+                                    <td>
+                                        <form action="<c:url value='/deletePhoto?id=${can.id}'/>" method="post" enctype="multipart/form-data">
+                                            <button type="submit" class="btn btn-default">Удалить фото</button>
+                                        </form>
+                                    </td>
+                                </table>
                             </td>
                         </tr>
                     </c:forEach>

@@ -1,0 +1,4 @@
+DELETE FROM post;
+DELETE FROM candidates;
+ALTER SEQUENCE post_id_seq RESTART WITH 1;
+ALTER SEQUENCE candidates_id_seq RESTART WITH 1;
