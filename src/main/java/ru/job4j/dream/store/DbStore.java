@@ -120,6 +120,7 @@ public class DbStore implements Store {
         } else {
             update(post);
         }
+        LOG.info("Добавлена или изменена вакансия");
     }
 
     public void save(Candidate candidate) {
@@ -128,6 +129,7 @@ public class DbStore implements Store {
         } else {
             update(candidate);
         }
+        LOG.info("Добавлен или измененён кандидат");
     }
 
     @Override
@@ -137,6 +139,7 @@ public class DbStore implements Store {
         } else {
             update(user);
         }
+        LOG.info("Добавлен или измененён пользователь");
     }
 
     private Post create(Post post) {

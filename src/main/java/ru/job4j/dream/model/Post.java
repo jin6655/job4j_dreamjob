@@ -45,4 +45,12 @@ public class Post {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
 }
