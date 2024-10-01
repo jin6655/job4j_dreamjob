@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+        let counter = 0;
         function validate() {
             var errorValidate = "Fields are not filled:\n";
             var lenghtErrorValidate = errorValidate.length;
@@ -20,6 +21,19 @@
             if ($('#description').val().length == 0) errorValidate += $('#labelDescription').text() + '\n';
             if ($('#sex').val() == 'Sex selection') errorValidate += $('#sex').val();
             if (errorValidate.length > lenghtErrorValidate) alert(errorValidate);
+        }
+        function addRow() {
+            const fn = $('#firstName').val();
+            const ln = $('#lastName').val();
+            const sex = $('#sex').val();
+            const desc = $('#description').val();
+            $('#tableUser tr:last').after('<tr>' +
+                '<th>' + counter++ +'</th>' +
+                '<td>' + fn +'</td>' +
+                '<td>' + ln +'</td>' +
+                '<td>' + sex +'</td>' +
+                '<td>' + desc+'</td>' +
+                '</tr>');
         }
     </script>
 </head>
@@ -43,42 +57,32 @@
             <textarea class="form-control" id="description" rows="3"></textarea>
         </div>
         <select class="form-select" class="form-control" id="sex" style="width: 120px; margin: 20px;" ;>
-            <label>Sex</label>
             <option selected>Sex selection</option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
         </select>
         <button type="submit" class="btn btn-primary" style="width: 120px; margin: 20px;" onclick="return validate();">
             Submit
         </button>
+        <button type="button" class="btn btn-primary" onclick="addRow();">Add Row</button>
     </form>
-    <table class="table" style="width: 800px; margin: 20px;">
+    <table class="table" id="tableUser" style="width: 800px; margin: 20px;">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Sex</th>
+            <th>Description</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <th scope="row">1</th>
+            <th>1</th>
             <td>Mark</td>
             <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+            <td>gkldjhngo@mdo</td>
+            <td>I am from Russia</td>
         </tr>
         </tbody>
     </table>
