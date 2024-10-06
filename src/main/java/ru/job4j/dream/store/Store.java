@@ -10,9 +10,15 @@ public interface Store {
 
     Collection<Post> findAllPosts();
 
+    Collection<Post> findPostsForTheLastDay();
+
     Collection<Candidate> findAllCandidates();
 
+    Collection<Candidate> findCandidatesForTheLastDay();
+
     Collection<User> findAllUsers();
+
+    Collection<String> findAllCities();
 
     void save(Post post);
 

@@ -18,7 +18,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
     <title>Работа мечты</title>
+    <script>
+        function validate() {
+            let error = '';
+            if ($('#email').val().length == 0) {error += 'Почта\n'};
+            if ($('#password').val().length == 0) {error += 'Пароль\n'};
+            if (error.length != 0) {
+                alert("Не заполнены поля: \n" + error);
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container pt-3">
@@ -30,23 +43,15 @@
             </div>
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/auth.do" method="post">
-                    <c:if test="${user != null}">
-                        <div class="form-group">
-                            <label>Почта</label>
-                            <input value="<c:out value="${user.email}"/>" type="text" class="form-control" name="email">
-                        </div>
-                    </c:if>
-                    <c:if test="${user == null}">
-                        <div class="form-group">
-                            <label>Почта</label>
-                            <input type="text" class="form-control" name="email">
-                        </div>
-                    </c:if>
+                    <div class="form-group">
+                        <label>Почта</label>
+                        <input type="text" value='<c:out value="${user.email}"/>' class="form-control" name="email" id="email">
+                    </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="form-control" name="password" id="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <button type="submit" class="btn btn-primary" onclick=validate();>Войти</button>
                     <c:if test="${not empty error}">
                         <div style="color:red; font-weight: bold; margin: 30px 0;">
                             <c:out value="${error}"/>

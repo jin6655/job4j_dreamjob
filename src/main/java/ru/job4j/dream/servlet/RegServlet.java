@@ -23,12 +23,16 @@ public class RegServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        DbStore.instOf().save(new User(
-                0,
-                req.getParameter("name"),
-                req.getParameter("email"),
-                req.getParameter("password")
-        ));
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        if (req.getParameter("name") != "" && req.getParameter("email") != "" && req.getParameter("password") != "") {
+            DbStore.instOf().save(new User(
+                    0,
+                    req.getParameter("name"),
+                    req.getParameter("email"),
+                    req.getParameter("password")
+            ));
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("reg.jsp").forward(req, resp);
+        }
     }
 }

@@ -28,7 +28,8 @@
             <ul class="nav">
                 <c:if test="${user != null}">
                     <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
+                                value="${user.name}"/> | Выйти</a>
                     </li>
                 </c:if>
                 <c:if test="${user == null}">
@@ -43,40 +44,120 @@
                 Кандидаты
             </div>
             <div class="card-body">
+                <div>
+                    <h4 style="margin: 30px;">За последний день</h4>
+                </div>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Список кандидатов</th>
+                        <th>Редактировать</th>
+                        <th>Имя</th>
+                        <th>Город</th>
+                        <th>Фото</th>
+                        <th>Редактировать фото</th>
+                        <th>Дата регистрации</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${candidates}" var="can">
+                    <c:forEach items="${candidatesForDay}" var="can">
                         <tr>
-                            <td>
+                            <td style="width: 50px;">
                                 <a href='<c:url value="/candidate/edit.jsp?id=${can.id}"/>'>
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
+                            </td>
+                            <td style="width: 150px;">
                                 <c:out value="${can.name}"/>
                             </td>
-                            <td>
+                            <td style="width: 100px;">
+                                <c:out value="${can.city}"/>
+                            </td>
+                            <td style="width: 150px;">
                                 <img src="<c:url value='/download?id=${can.id}'/>" width="150px" height="150px"/>
                             </td>
-                            <td align="center">
-                                <table>
+                            <td style="width: 150px;">
+                                <table class="table">
                                     <tr>
                                         <a href="<c:url value="/photoUpload?id=${can.id}"/>"><p align="center">Добавить
-                                            фото</p></a></tr>
-                                    <td>
-                                        <form action="<c:url value='/deletePhoto?id=${can.id}'/>" method="post" enctype="multipart/form-data">
-                                            <button type="submit" class="btn btn-default">Удалить фото</button>
+                                            фото</p>
+                                        </a>
+                                    </tr>
+                                    <tr>
+                                        <form action="<c:url value='/deletePhoto?id=${can.id}'/>" method="post"
+                                              enctype="multipart/form-data">
+                                            <button type="submit" class="btn btn-default" style="margin-left: 30px;">
+                                                Удалить фото
+                                            </button>
                                         </form>
-                                    </td>
+                                    </tr>
                                 </table>
+                            </td>
+                            <td style="width: 100px;">
+                                <c:out value="${can.time}"/>
                             </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
+                <div>
+                    <h4 style="margin: 30px;">За всё время</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Редактировать</th>
+                            <th>Имя</th>
+                            <th>Город</th>
+                            <th>Фото</th>
+                            <th>Редактировать фото</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${candidates}" var="can">
+                            <tr>
+                                <td style="width: 50px;">
+                                    <a href='<c:url value="/candidate/edit.jsp?id=${can.id}"/>'>
+                                        <i class="fa fa-edit mr-3"></i>
+                                    </a>
+                                </td>
+                                <td style="width: 150px;">
+                                    <c:out value="${can.name}"/>
+                                </td>
+                                <td style="width: 100px;">
+                                    <c:out value="${can.city}"/>
+                                </td>
+                                <td style="width: 150px;">
+                                    <img src="<c:url value='/download?id=${can.id}'/>" width="150px"
+                                         height="150px"/>
+                                </td>
+                                <td style="width: 150px;">
+                                    <table class="table">
+                                        <tr>
+                                            <a href="<c:url value="/photoUpload?id=${can.id}"/>"><p align="center">
+                                                Добавить
+                                                фото</p>
+                                            </a>
+                                        </tr>
+                                        <tr>
+                                            <form action="<c:url value='/deletePhoto?id=${can.id}'/>" method="post"
+                                                  enctype="multipart/form-data">
+                                                <button type="submit" class="btn btn-default"
+                                                        style="margin-left: 30px;">Удалить фото
+                                                </button>
+                                            </form>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width: 100px;">
+                                    <c:out value="${can.time}"/>
+                                </td>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

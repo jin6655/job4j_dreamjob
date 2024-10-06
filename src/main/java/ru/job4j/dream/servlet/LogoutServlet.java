@@ -11,6 +11,7 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json; charset=utf-8");
         HttpSession session = req.getSession();
         session.invalidate();
         req.getRequestDispatcher("login.jsp").forward(req, resp);

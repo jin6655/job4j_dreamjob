@@ -28,6 +28,7 @@ public class DbStoreTest {
         Candidate candidate = new Candidate(0, "Min");
         store.save(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
+        System.out.println(candidateInDb);
         assertThat(candidateInDb.getName(), Matchers.is(candidate.getName()));
     }
 

@@ -3,6 +3,9 @@ package ru.job4j.dream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Caty {
@@ -30,10 +33,7 @@ public class Caty {
     }
 
     public static void main(String[] args) {
-        Caty cat = new Caty(34, "Anny", new String[]{"Old", "Boy", "Girl"});
-        Gson gsonCat = new GsonBuilder().create();
-        Caty cat02 = gsonCat.fromJson(gsonCat.toJson(cat), Caty.class);
-        System.out.println(cat02);
+        System.out.println("\'");
     }
 
 }

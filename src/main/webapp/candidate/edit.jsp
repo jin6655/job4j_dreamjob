@@ -19,50 +19,89 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
     <title>Работа мечты</title>
+    <script>
+        function validate() {
+            let error = '';
+            if ($('#name').val().length == 0) {
+                error += 'Имя\n'
+            }
+            ;
+            if ($('#cities').val() == "Выберите город") {
+                error += 'Город\n'
+            }
+            ;
+            if (error.length != 0) {
+                alert("Не заполнены поля: \n" + error);
+            }
+        }
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/dreamjob/cities',
+                dataType: 'json'
+            }).done(function (data) {
+                for (var city of data) {
+                    $('#cities option:last').after('<option>' + city + '</option>');
+                }
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
 </head>
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, "", "");
     if (id != null) {
         candidate = DbStore.instOf().findCandidateById(Integer.parseInt(id));
     }
 %>
 <div class="container pt-3">
-        <div class="row" align="center">
-            <ul class="nav">
-                <c:if test="${user != null}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
-                    </li>
-                </c:if>
-                <c:if test="${user == null}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
-                    </li>
-                </c:if>
-            </ul>
+    <div class="row" align="center">
+        <ul class="nav">
+            <c:if test="${user != null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> |
+                        Выйти</a>
+                </li>
+            </c:if>
+            <c:if test="${user == null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
+                </li>
+            </c:if>
+        </ul>
+    </div>
+    <div class="card" style="width: 100%">
+        <div class="card-header">
+            <% if (id == null) { %>
+            Новый кандидат.
+            <% } else { %>
+            Редактирование карточки кандидата.
+            <% } %>
         </div>
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                <% if (id == null) { %>
-                    Новый кандидат.
-                <% } else { %>
-                    Редактирование карточки кандидата.
-                <% } %>
-            </div>
-            <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
-                    <div class="form-group">
-                        <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                </form>
-            </div>
+        <div class="card-body">
+            <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
+                <div class="form-group" style="margin: 20px;">
+                    <label>Имя</label>
+                    <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>" id="name">
+                </div>
+                <div>
+                    <select class="form-select" aria-label="Default select example" name="city" value="<%=candidate.getCity()%>" id="cities">
+                        <option selected>Выберите город</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-left: 20px; margin-top: 20px;"
+                        onclick="validate();">Сохранить
+                </button>
+            </form>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

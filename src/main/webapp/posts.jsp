@@ -1,4 +1,6 @@
 <%@ page import="java.util.Date" %>
+<%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
@@ -21,6 +23,9 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Работа мечты</title>
+    <script>
+        var display = true;
+    </script>
 </head>
 <body>
 <div class="container pt-3">
@@ -28,7 +33,8 @@
         <ul class="nav">
             <c:if test="${user != null}">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> |
+                        Выйти</a>
                 </li>
             </c:if>
             <c:if test="${user == null}">
@@ -43,21 +49,64 @@
             <div class="card-header">
                 Вакансии
             </div>
+            <div>
+                <h4 style="margin-left: 50px; margin-top: 20px;">За последний день</h4>
+            </div>
             <div class="card-body">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">Вакансия</th>
+                        <th scope="col">Редактировать</th>
+                        <th>Добавлено</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${postsForDay}" var="post">
+                        <tr>
+                            <td style="width: 200px;">
+                                <c:out value="${post.name}"/>
+                            </td>
+                            <td style="width: 200px;">
+                                <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>
+                                    <i class="fa fa-edit mr-3"></i>
+                                </a>
+                            </td>
+                            <td style="width: 200px;">
+                                <c:out value="${post.time}"/>
+                            </td>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h4 style="margin-left: 50px; margin-top: 20px;">За всё время</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Вакансия</th>
+                        <th scope="col">Редактировать</th>
+                        <th>Добавлено</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${posts}" var="post">
                         <tr>
-                            <td>
+                            <td style="width: 200px;">
+                                <c:out value="${post.name}"/>
+                            </td>
+                            <td style="width: 200px;">
                                 <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
-                                <c:out value="${post.name}"/>
+                            </td>
+                            <td style="width: 200px;">
+                                <c:out value="${post.time}"/>
+                            </td>
                             </td>
                         </tr>
                     </c:forEach>

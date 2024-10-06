@@ -2,6 +2,7 @@ package ru.job4j.dream.servlet;
 
 import com.google.gson.*;
 import ru.job4j.dream.model.Email;
+import ru.job4j.dream.store.DbStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

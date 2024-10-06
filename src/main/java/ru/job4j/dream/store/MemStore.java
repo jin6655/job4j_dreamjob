@@ -25,16 +25,21 @@ public class MemStore implements Store {
 
     private final Map<Integer, User> users = new ConcurrentHashMap<>();
 
+    private final Map<Integer, String> cities = new ConcurrentHashMap<>();
+
     private MemStore() {
         posts.put(1, new Post(1, "Junior Java Job"));
         posts.put(2, new Post(2, "Middle Java Job"));
         posts.put(3, new Post(3, "Senior Java Job"));
-        candidates.put(1, new Candidate(1, "Junior Java"));
-        candidates.put(2, new Candidate(2, "Middle Java"));
-        candidates.put(3, new Candidate(3, "Senior Java"));
+        candidates.put(1, new Candidate(1, "Junior Java", "Mocsow"));
+        candidates.put(2, new Candidate(2, "Middle Java", "Gradn"));
+        candidates.put(3, new Candidate(3, "Senior Java", "Lvov"));
         users.put(1, new User(1, "Anna", "roll@mail.ru", "password01"));
         users.put(2, new User(2, "Bob", "azbuk@mail.ru", "password02"));
         users.put(3, new User(3, "Marli", "chename@mail.ru", "password03"));
+        cities.put(1, "Moscow");
+        cities.put(2, "Orsha");
+        cities.put(3, "Orel");
     }
 
     public static MemStore instOf() {
@@ -47,6 +52,18 @@ public class MemStore implements Store {
 
     public Collection<Candidate> findAllCandidates() {
         return candidates.values();
+    }
+
+    public Collection<String> findAllCities() {return cities.values();}
+
+    @Override
+    public Collection<Post> findPostsForTheLastDay() {
+        return null;
+    }
+
+    @Override
+    public Collection<Candidate> findCandidatesForTheLastDay() {
+        return null;
     }
 
     @Override
@@ -96,11 +113,12 @@ public class MemStore implements Store {
 
     @Override
     public User findByEmail(String email) {
-        for(Map.Entry<Integer, User> user : users.entrySet()) {
+        for (Map.Entry<Integer, User> user : users.entrySet()) {
             if (user.getValue().getEmail().equals(email)) {
                 return user.getValue();
             }
         }
         return null;
     }
+
 }

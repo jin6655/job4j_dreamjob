@@ -19,6 +19,17 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
     <title>Работа мечты</title>
+    <script>
+        function validate() {
+            let error = '';
+            if($('#name').val().length == 0) {error += 'Имя\n'};
+            if($('#email').val().length == 0) {error += 'Электронная почта\n'};
+            if($('#password').val().length == 0) {error += 'Пароль\n'};
+            if(error.length != 0) {
+                alert("Не заполнены поля: \n" + error);
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container pt-3">
@@ -29,25 +40,20 @@
             </div>
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/reg.do" method="post">
-
                         <div class="form-group">
                             <label>Имя</label>
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" class="form-control" name="name" id="name">
                         </div>
                     <div class="form-group">
                         <label>Электронная почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" id="email">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="form-control" name="password" id="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <button type="submit" class="btn btn-primary" onclick="validate();">Отправить</button>
                 </form>
-
-
-
-
             </div>
         </div>
     </div>
