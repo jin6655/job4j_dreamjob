@@ -1,6 +1,3 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="ru.job4j.dream.model.Post" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
